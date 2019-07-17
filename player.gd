@@ -7,9 +7,12 @@ export(int, "Red", "Blue", "Green") var color
 var movement : Vector2
 onready var start : Vector2 = position
 onready var start_color : int = color
+var bg_color : Color
 
 func _ready():
 	$Sprite.modulate = modulates[color]
+	VisualServer.set_default_clear_color(modulates[2])
+	bg_color = modulates[2]
 
 func _physics_process(delta):
 	movement.y += 10
@@ -38,8 +41,15 @@ func _physics_process(delta):
 	for i in get_slide_count():
 		var collision = get_slide_collision(i)
 		if collision.collider.name != colors[color]:
-			position = start
-			$Sprite.modulate = modulates[start_color]
-			color = start_color
-			Input.action_release("left")
-			Input.action_release("right")
+			restart()
+
+	if $Sprite.modulate == bg_color:
+		restart()
+
+func restart():
+	movement = Vector2()
+	position = start
+	$Sprite.modulate = modulates[start_color]
+	color = start_color
+	Input.action_release("left")
+	Input.action_release("right")
