@@ -1,46 +1,50 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://player.gd" type="Script" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://blue.png" type="Texture" id=2]
 [ext_resource path="res://test_tiles.tres" type="TileSet" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 32, 32 )
+extents = Vector2( 4, 4 )
 
 [node name="world" type="Node2D"]
 
 [node name="player" type="KinematicBody2D" parent="."]
-position = Vector2( 288, 288 )
+position = Vector2( 4, -4 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
 color = 1
+level_color = 2
+move_speed = 50
+jump_height = 250
 
 [node name="Sprite" type="Sprite" parent="player"]
-modulate = Color( 1, 0, 0, 1 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
 shape = SubResource( 1 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 512, 288 )
+current = true
 
 [node name="red" type="TileMap" parent="."]
-modulate = Color( 1, 0, 0, 1 )
+modulate = Color( 0.85098, 0.341176, 0.388235, 1 )
 tile_set = ExtResource( 3 )
+cell_size = Vector2( 16, 16 )
 format = 1
-tile_data = PoolIntArray( 196616, 0, 0 )
+tile_data = PoolIntArray( -65533, 0, 0 )
 
 [node name="blue" type="TileMap" parent="."]
-modulate = Color( 0, 0, 1, 1 )
+modulate = Color( 0.372549, 0.803922, 0.894118, 1 )
 tile_set = ExtResource( 3 )
+cell_size = Vector2( 16, 16 )
 format = 1
-tile_data = PoolIntArray( 131082, 0, 0, 131083, 0, 0, 131084, 0, 0, 131085, 0, 0, 327683, 0, 0, 327684, 0, 0, 327685, 0, 0, 327686, 0, 0 )
+tile_data = PoolIntArray( -131068, 0, 0, -131067, 0, 0, -131066, 0, 0, -131065, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0 )
 
 [node name="green" type="TileMap" parent="."]
-modulate = Color( 0, 1, 0, 1 )
+modulate = Color( 0.6, 0.898039, 0.313726, 1 )
 tile_set = ExtResource( 3 )
+cell_size = Vector2( 16, 16 )
 format = 1
-tile_data = PoolIntArray( 458752, 0, 0, 458753, 0, 0, 458754, 0, 0 )
