@@ -17,10 +17,10 @@ func _ready():
 	for sprite in sprites:
 		var data = sprite.get_data()
 		data.lock()
-		modulates.append(data.get_pixel(4, 4).to_html())
+		modulates.append(data.get_pixel(4, 4))
 		data.unlock()
 
-	VisualServer.set_default_clear_color(modulates[level_color])
+	get_node("../background").color = modulates[level_color]
 	$Sprite.texture = sprites[color]
 
 func _physics_process(delta):
