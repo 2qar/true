@@ -1,10 +1,8 @@
 extends KinematicBody2D
 
-var sprites = [preload("res://red.png"), preload("res://blue.png"), preload("res://green.png")]
-var modulates : PoolColorArray = []
-var colors = ["red", "blue", "green"]
+onready var colors : Node2D = get_node("/root/colors")
 export(int, "Red", "Blue", "Green") var color
-export(int, "Red", "Blue", "Green") var level_color
+var level_color : int
 
 export(int) var move_speed
 export(int) var jump_height
@@ -14,20 +12,13 @@ onready var start : Vector2 = position
 onready var start_color : int = color
 
 func _ready():
-	for sprite in sprites:
-		var data = sprite.get_data()
-		data.lock()
-		modulates.append(data.get_pixel(4, 4))
-		data.unlock()
-
-	get_node("../background").color = modulates[level_color]
-	$Sprite.texture = sprites[color]
+	$Sprite.texture = colors.sprites[color]
 
 func _physics_process(delta):
 	movement.y += 10
 	
 	if Input.is_action_just_pressed("left"):
-		$Sprite.texture = sprites[color]
+		$Sprite.texture = colors.sprites[color]
 		set_sprite(2)
 	if Input.is_action_just_pressed("right"):
 		set_sprite(1)
@@ -47,19 +38,23 @@ func _physics_process(delta):
 	movement = move_and_slide(movement, Vector2(0, -1))
 	for i in get_slide_count():
 		var collision = get_slide_collision(i)
-		if collision.collider.name != colors[color]:
+		if collision.collider.name != colors.names[color]:
 			restart()
 
 	if color == level_color:
 		restart()
 
 func set_sprite(c: int):
-	$Sprite.texture = sprites[c]
+	$Sprite.texture = colors.sprites[c]
 	color = c
 
 func restart():
 	movement = Vector2()
 	position = start
 	set_sprite(start_color)
+	Input.action_release("left")
+	Input.action_release("right")
+
+func stop_moving():
 	Input.action_release("left")
 	Input.action_release("right")

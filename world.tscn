@@ -1,10 +1,32 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://player.gd" type="Script" id=1]
-[ext_resource path="res://blue.png" type="Texture" id=2]
-[ext_resource path="res://test_tiles.tres" type="TileSet" id=3]
+[ext_resource path="res://background.tscn" type="PackedScene" id=1]
+[ext_resource path="res://test_tiles.tres" type="TileSet" id=2]
+[ext_resource path="res://switcheroo.gd" type="Script" id=3]
+[ext_resource path="res://tile.png" type="Texture" id=4]
+[ext_resource path="res://player.gd" type="Script" id=5]
+[ext_resource path="res://blue.png" type="Texture" id=6]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="Animation" id=1]
+resource_name = "rotate"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("mask:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 90.0 ]
+}
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 1, 1 )
+
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 4, 4 )
 
 [node name="world" type="Node2D"]
@@ -12,48 +34,62 @@ extents = Vector2( 4, 4 )
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 
-[node name="background" type="ColorRect" parent="."]
-margin_left = -80.0
-margin_top = -80.0
-margin_right = 80.0
-margin_bottom = 80.0
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="player" type="KinematicBody2D" parent="."]
-position = Vector2( -48, -4 )
-script = ExtResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
-color = 1
-level_color = 2
-move_speed = 50
-jump_height = 250
-
-[node name="Sprite" type="Sprite" parent="player"]
-texture = ExtResource( 2 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
-shape = SubResource( 1 )
+[node name="background" parent="." instance=ExtResource( 1 )]
 
 [node name="red" type="TileMap" parent="."]
 modulate = Color( 0.85098, 0.341176, 0.388235, 1 )
-tile_set = ExtResource( 3 )
+tile_set = ExtResource( 2 )
 cell_size = Vector2( 16, 16 )
 format = 1
 tile_data = PoolIntArray( -1, 0, 0 )
 
 [node name="blue" type="TileMap" parent="."]
 modulate = Color( 0.372549, 0.803922, 0.894118, 1 )
-tile_set = ExtResource( 3 )
+tile_set = ExtResource( 2 )
 cell_size = Vector2( 16, 16 )
 format = 1
-tile_data = PoolIntArray( -131072, 0, 0, -131071, 0, 0, -131070, 0, 0, 65532, 0, 0, 65533, 0, 0, 65534, 0, 0 )
+tile_data = PoolIntArray( -393216, 0, 0, -393215, 0, 0, -393214, 0, 0, -327677, 0, 0, -262141, 0, 0, -196605, 0, 0, -131072, 0, 0, -131071, 0, 0, -131070, 0, 0, -131069, 0, 0, 65532, 0, 0, 65533, 0, 0, 65534, 0, 0 )
 
 [node name="green" type="TileMap" parent="."]
 modulate = Color( 0.6, 0.898039, 0.313726, 1 )
-tile_set = ExtResource( 3 )
+tile_set = ExtResource( 2 )
 cell_size = Vector2( 16, 16 )
 format = 1
+
+[node name="switcheroo" type="Area2D" parent="."]
+position = Vector2( 40, -36 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+switch_color = 2
+
+[node name="rotate" type="AnimationPlayer" parent="switcheroo"]
+anims/rotate = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="switcheroo"]
+shape = SubResource( 2 )
+
+[node name="mask" type="Light2D" parent="switcheroo"]
+texture = ExtResource( 4 )
+mode = 1
+
+[node name="expand" type="Tween" parent="switcheroo"]
+
+[node name="player" type="KinematicBody2D" parent="."]
+position = Vector2( -48, -4 )
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_group_": true
+}
+color = 1
+move_speed = 50
+jump_height = 250
+
+[node name="Sprite" type="Sprite" parent="player"]
+light_mask = 2
+texture = ExtResource( 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
+shape = SubResource( 3 )
+[connection signal="body_entered" from="switcheroo" to="switcheroo" method="_on_switcheroo_body_entered"]

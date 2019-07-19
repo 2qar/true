@@ -19,6 +19,10 @@ config/name="true"
 run/main_scene="res://world.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+colors="*res://colors.tscn"
+
 [display]
 
 window/size/width=160
