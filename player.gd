@@ -58,3 +58,8 @@ func restart():
 func stop_moving():
 	Input.action_release("left")
 	Input.action_release("right")
+
+func set_enabled(enabled : bool):
+	set_physics_process(enabled)
+	set_process(enabled)
+	visible = enabled

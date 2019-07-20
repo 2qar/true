@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://switcheroo.gd" type="Script" id=1]
+[ext_resource path="res://tile.png" type="Texture" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "rotate"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("mask:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 89.0 ]
+}
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 1, 1 )
+
+[node name="switcheroo" type="Area2D"]
+position = Vector2( 40, -36 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+switch_color = 2
+
+[node name="rotate" type="AnimationPlayer" parent="."]
+anims/rotate = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+
+[node name="mask" type="Light2D" parent="."]
+rotation = 1.5708
+texture = ExtResource( 2 )
+mode = 1
+
+[node name="expand" type="Tween" parent="."]
+[connection signal="body_entered" from="." to="." method="_on_switcheroo_body_entered"]
