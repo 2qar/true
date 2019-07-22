@@ -84,6 +84,8 @@ func _physics_process(delta):
 		$Sprite.texture = colors.jumping[color]
 		$Sprite.hframes = 1
 		$Sprite.frame = 0
+	elif movement.y == 0 and movement.x == 0 and $Sprite.texture != colors.sprites[color]:
+		set_sprite(color)
 
 func set_sprite(c: int):
 	color = c
