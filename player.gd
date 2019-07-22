@@ -11,6 +11,8 @@ var movement : Vector2
 onready var start : Vector2 = position
 onready var start_color : int = color
 
+var jumping : bool
+
 func _ready():
 	$Sprite.texture = colors.sprites[color]
 
@@ -49,28 +51,39 @@ func _physics_process(delta):
 		movement.x = 0
 
 	if Input.is_action_pressed("left"):
-		if color != 0:
+		if color != 0 and not jumping:
 			$Sprite.texture = colors.running[2]
+			$Sprite.hframes = colors.running[2].get_width() / 8
 			color = 2
 		movement.x = -move_speed
 	if Input.is_action_pressed("right"):
-		if color != 0:
+		if color != 0 and not jumping:
 			$Sprite.texture = colors.running[1]
+			$Sprite.hframes = colors.running[1].get_width() / 8
 			color = 1
 		movement.x = move_speed
 
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		set_sprite(0)
 		movement.y = -jump_height
+		jumping = true
 
 	movement = move_and_slide(movement, Vector2(0, -1))
 	for i in get_slide_count():
 		var collision = get_slide_collision(i)
 		if collision.collider.name != colors.names[color]:
 			restart()
+		elif jumping and is_on_floor():
+			jumping = false
+			set_sprite(color)
 
 	if color == level_color:
 		restart()
+
+	if movement.y != 0:
+		$Sprite.texture = colors.jumping[color]
+		$Sprite.hframes = 1
+		$Sprite.frame = 0
 
 func set_sprite(c: int):
 	color = c
