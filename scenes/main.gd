@@ -32,7 +32,7 @@ func _on_shift_worlds():
 	_shift_world(viewports[1], viewports[2])
 	_shift_world(viewports[0], viewports[1])
 	bg_world_num += 1
-	var world = load("res://world%d.tscn" % bg_world_num)
+	var world = load("res://scenes/levels/world%d.tscn" % bg_world_num)
 	if world:
 		viewports[0].add_child(world.instance())
 		var switcheroo = viewports[0].get_child(0).get_node("switcheroo")

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/green_jump.png-77c515f83185cfa4c94058e0782dff21.stex"
+path="res://.import/red_run.png-63884778331126a0e65f9bd4bad8cabe.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://green_jump.png"
-dest_files=[ "res://.import/green_jump.png-77c515f83185cfa4c94058e0782dff21.stex" ]
+source_file="res://sprites/red_run.png"
+dest_files=[ "res://.import/red_run.png-63884778331126a0e65f9bd4bad8cabe.stex" ]
 
 [params]
 

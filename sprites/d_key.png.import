@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/space.png-81e1b11cffac9addd923b9f4eb36afe7.stex"
+path="res://.import/d_key.png-3af3755c34a1b99b503c78c5a3a7bbd2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://space.png"
-dest_files=[ "res://.import/space.png-81e1b11cffac9addd923b9f4eb36afe7.stex" ]
+source_file="res://sprites/d_key.png"
+dest_files=[ "res://.import/d_key.png-3af3755c34a1b99b503c78c5a3a7bbd2.stex" ]
 
 [params]
 

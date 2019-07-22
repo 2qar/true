@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/d_key.png-e23d54dbb5a1d900ea7f14f35041a349.stex"
+path="res://.import/red_jump.png-f1257574223e958455a19828c1a23ffb.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://d_key.png"
-dest_files=[ "res://.import/d_key.png-e23d54dbb5a1d900ea7f14f35041a349.stex" ]
+source_file="res://sprites/red_jump.png"
+dest_files=[ "res://.import/red_jump.png-f1257574223e958455a19828c1a23ffb.stex" ]
 
 [params]
 
