@@ -1,7 +1,5 @@
 extends Area2D
 
-export(int, "Red", "Blue", "Green") var switch_color
-
 signal swap_player
 signal shift_worlds
 
@@ -11,6 +9,7 @@ func _ready():
 
 func _on_switcheroo_body_entered(body):
 	if body.name == "player":
+		$CollisionShape2D.call_deferred("set_disabled", true)
 		body.stop_moving()
 
 		emit_signal("swap_player", body)
