@@ -6,38 +6,39 @@
 [ext_resource path="res://test_tiles.tres" type="TileSet" id=4]
 [ext_resource path="res://scenes/player.tscn" type="PackedScene" id=5]
 
-[node name="world5" type="Node2D"]
+[node name="world7" type="Node2D"]
 script = ExtResource( 1 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 
 [node name="background" parent="." instance=ExtResource( 2 )]
-color = 1
+color = 0
 
 [node name="switcheroo" parent="." instance=ExtResource( 3 )]
-position = Vector2( -72, -4 )
+position = Vector2( 56, 64 )
 
 [node name="red" type="TileMap" parent="."]
 modulate = Color( 0.85098, 0.341176, 0.388235, 1 )
 tile_set = ExtResource( 4 )
 cell_size = Vector2( 16, 16 )
 format = 1
-tile_data = PoolIntArray( 65533, 0, 0, 2, 0, 0, 65539, 0, 0, 196603, 0, 0, 196611, 0, 0 )
+tile_data = PoolIntArray( -6, 536870912, 0, -65534, 536870912, 0, 131066, 536870912, 0, 196602, 536870912, 0, 131077, 536870912, 0, 262138, 536870912, 0, 196613, 536870912, 0, 327674, 536870912, 0, 262149, 536870912, 0, 393211, 536870912, 0, 393212, 536870912, 0, 393213, 536870912, 0, 393214, 536870912, 0, 393215, 536870912, 0, 327680, 536870912, 0, 327681, 536870912, 0, 327682, 536870912, 0, 327683, 536870912, 0, 327684, 536870912, 0 )
 
 [node name="blue" type="TileMap" parent="."]
 modulate = Color( 0.372549, 0.803922, 0.894118, 1 )
 tile_set = ExtResource( 4 )
 cell_size = Vector2( 16, 16 )
 format = 1
+tile_data = PoolIntArray( -131070, 0, 0, -65536, 0, 0, 65534, 536870912, 0, 65535, 0, 0, 2, 0, 0, 131068, 536870912, 0, 196606, 536870912, 0, 196607, 536870912, 0, 196608, 0, 0, 262145, 536870912, 0, 262146, 536870912, 0, 262147, 536870912, 0 )
 
 [node name="green" type="TileMap" parent="."]
 modulate = Color( 0.6, 0.898039, 0.313726, 1 )
 tile_set = ExtResource( 4 )
 cell_size = Vector2( 16, 16 )
 format = 1
-tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 196607, 0, 0, 131072, 0, 0, 131073, 0, 0, 327675, 0, 0, 327676, 0, 0, 327677, 0, 0, 327678, 0, 0, 327679, 0, 0, 262144, 0, 0, 262145, 0, 0, 262146, 0, 0, 262147, 0, 0, 262148, 0, 0 )
+tile_data = PoolIntArray( -196607, 0, 0, -196606, 0, 0, -196605, 0, 0, -65537, 0, 0, -3, 0, 0, 65531, 536870912, 0, 65537, 0, 0 )
 
 [node name="player" parent="." instance=ExtResource( 5 )]
-position = Vector2( 72, 60 )
+position = Vector2( 56, -52 )
 color = 2
