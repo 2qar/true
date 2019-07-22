@@ -1,16 +1,12 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/levels/world.gd" type="Script" id=1]
 [ext_resource path="res://scenes/background.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/switcheroo.gd" type="Script" id=3]
 [ext_resource path="res://sprites/tile.png" type="Texture" id=4]
-[ext_resource path="res://test_tiles.tres" type="TileSet" id=5]
-[ext_resource path="res://scenes/player.tscn" type="PackedScene" id=6]
-
-
-
-
-
+[ext_resource path="res://sounds/swap.wav" type="AudioStream" id=5]
+[ext_resource path="res://test_tiles.tres" type="TileSet" id=6]
+[ext_resource path="res://scenes/player.tscn" type="PackedScene" id=7]
 
 [sub_resource type="Animation" id=1]
 resource_name = "rotate"
@@ -49,6 +45,9 @@ __meta__ = {
 [node name="rotate" type="AnimationPlayer" parent="switcheroo"]
 anims/rotate = SubResource( 1 )
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="switcheroo"]
+shape = SubResource( 2 )
+
 [node name="mask" type="Light2D" parent="switcheroo"]
 rotation = 1.5708
 texture = ExtResource( 4 )
@@ -56,30 +55,31 @@ mode = 1
 
 [node name="expand" type="Tween" parent="switcheroo"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="switcheroo"]
-shape = SubResource( 2 )
+[node name="swap_sound" type="AudioStreamPlayer" parent="switcheroo"]
+stream = ExtResource( 5 )
+volume_db = -4.837
 
 [node name="red" type="TileMap" parent="."]
 modulate = Color( 0.85098, 0.341176, 0.388235, 1 )
-tile_set = ExtResource( 5 )
+tile_set = ExtResource( 6 )
 cell_size = Vector2( 16, 16 )
 format = 1
 tile_data = PoolIntArray( -327679, 0, 0, -131074, 0, 0, -196606, 0, 0, -1, 0, 0 )
 
 [node name="blue" type="TileMap" parent="."]
 modulate = Color( 0.372549, 0.803922, 0.894118, 1 )
-tile_set = ExtResource( 5 )
+tile_set = ExtResource( 6 )
 cell_size = Vector2( 16, 16 )
 format = 1
 tile_data = PoolIntArray( -262147, 0, 0, -262146, 0, 0, -262145, 0, 0, -327680, 0, 0, -327678, 0, 0, -327677, 0, 0, -196613, 0, 0, -196612, 0, 0, -196611, 0, 0, -131075, 0, 0, -196608, 0, 0, -131072, 0, 0, -131070, 0, 0, -3, 0, 0, -65536, 0, 0, -65534, 0, 0, 65531, 0, 0, 65532, 0, 0, 65533, 0, 0 )
 
 [node name="green" type="TileMap" parent="."]
 modulate = Color( 0.6, 0.898039, 0.313726, 1 )
-tile_set = ExtResource( 5 )
+tile_set = ExtResource( 6 )
 cell_size = Vector2( 16, 16 )
 format = 1
 tile_data = PoolIntArray( -393212, 0, 0, -327675, 0, 0, -262139, 0, 0, -196603, 0, 0, -131067, 0, 0, -65531, 0, 0, 5, 0, 0, 65541, 0, 0, 131077, 0, 0, 196613, 0, 0, 262149, 0, 0, 393211, 0, 0, 393212, 0, 0, 393213, 0, 0, 393214, 0, 0, 393215, 0, 0, 327680, 0, 0, 327681, 0, 0, 327682, 0, 0, 327683, 0, 0, 327684, 0, 0 )
 
-[node name="player" parent="." instance=ExtResource( 6 )]
+[node name="player" parent="." instance=ExtResource( 7 )]
 position = Vector2( -68, -4 )
 [connection signal="body_entered" from="switcheroo" to="switcheroo" method="_on_switcheroo_body_entered"]

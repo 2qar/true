@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+onready var death_particles = preload("res://scenes/death_particles.tscn")
 onready var colors : Node2D = get_node("/root/colors")
 export(int, "Red", "Blue", "Green") var color
 var level_color : int
@@ -13,6 +14,8 @@ onready var start_color : int = color
 
 var jumping : bool
 
+onready var step_time = $step_timer.wait_time
+
 func _ready():
 	$Sprite.texture = colors.sprites[color]
 
@@ -25,6 +28,16 @@ func _process(delta):
 		$run_timer.start()
 		yield($run_timer, "timeout")
 		$run_timer.stop()
+
+	if $step_timer.is_stopped() and (Input.is_action_pressed("left") or Input.is_action_pressed("right")) and is_on_floor():
+		if color == 0:
+			$step_timer.wait_time = $run_timer.wait_time
+		else:
+			$step_timer.wait_time = step_time
+		$step.play()
+		$step_timer.start()
+		yield($step_timer, "timeout")
+		$step_timer.stop()
 
 func _physics_process(delta):
 	movement.y += 10
@@ -67,6 +80,7 @@ func _physics_process(delta):
 		set_sprite(0)
 		movement.y = -jump_height
 		jumping = true
+		$jump.play()
 
 	movement = move_and_slide(movement, Vector2(0, -1))
 	for i in get_slide_count():
@@ -101,6 +115,12 @@ func set_run(c: int):
 	$Sprite.hframes = run.get_width() / 8
 
 func restart():
+	var explosion : CPUParticles2D = death_particles.instance()
+	get_parent().add_child(explosion)
+	explosion.position = position
+	explosion.color = colors.colors[color]
+	explosion.emitting = true
+	$hit.play()
 	movement = Vector2()
 	position = start
 	set_sprite(start_color)

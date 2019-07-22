@@ -1,7 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/player.gd" type="Script" id=1]
 [ext_resource path="res://sprites/blue.png" type="Texture" id=2]
+[ext_resource path="res://sounds/hit.wav" type="AudioStream" id=3]
+[ext_resource path="res://sounds/jump.wav" type="AudioStream" id=4]
+[ext_resource path="res://sounds/step.wav" type="AudioStream" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 4, 4 )
@@ -25,3 +28,18 @@ shape = SubResource( 1 )
 
 [node name="run_timer" type="Timer" parent="."]
 wait_time = 0.1
+
+[node name="step_timer" type="Timer" parent="."]
+wait_time = 0.35
+
+[node name="hit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -8.157
+
+[node name="jump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -12.235
+
+[node name="step" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -12.235
