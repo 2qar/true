@@ -1,13 +1,15 @@
 extends Node2D
 
 var sprites = []
+var running = []
 var colors : PoolColorArray = []
 var names = ["red", "blue", "green"]
 
 func _ready():
 	for name in ["red", "blue", "green"]:
-		var sprite = load("res://" + name + ".png")
+		var sprite = load("res://%s.png" % name)
 		sprites.append(sprite)
+		running.append(load("res://%s_run.png" % name))
 		var data = sprite.get_data()
 		data.lock()
 		colors.append(data.get_pixel(4, 4))

@@ -14,23 +14,51 @@ onready var start_color : int = color
 func _ready():
 	$Sprite.texture = colors.sprites[color]
 
+func _process(delta):
+	if $Sprite.hframes > 1 and $run_timer.is_stopped():
+		if $Sprite.frame < $Sprite.hframes - 1:
+			$Sprite.frame += 1
+		else:
+			$Sprite.frame = 0
+		$run_timer.start()
+		yield($run_timer, "timeout")
+		$run_timer.stop()
+
 func _physics_process(delta):
 	movement.y += 10
+
+	# AAAAAAAAAA
+	if movement.x != 0 and color == 0 and is_on_floor() and $Sprite.texture != colors.running[0]:
+		set_run(0)
 	
 	if Input.is_action_just_pressed("left"):
-		$Sprite.texture = colors.sprites[color]
-		set_sprite(2)
+		set_run(2)
 	if Input.is_action_just_pressed("right"):
-		set_sprite(1)
-
-	if Input.is_action_pressed("left") or Input.is_action_pressed("right"):
-		if Input.is_action_pressed("left"):
-			movement.x = -move_speed
-		if Input.is_action_pressed("right"):
-			movement.x = move_speed
-	else:
+		set_run(1)
+	if Input.is_action_just_released("right"):
+		if color == 1:
+			set_sprite(1)
+		elif color == 0:
+			set_sprite(0)
 		movement.x = 0
-	
+	elif Input.is_action_just_released("left"):
+		if color == 2:
+			set_sprite(2)
+		elif color == 0:
+			set_sprite(0)
+		movement.x = 0
+
+	if Input.is_action_pressed("left"):
+		if color != 0:
+			$Sprite.texture = colors.running[2]
+			color = 2
+		movement.x = -move_speed
+	if Input.is_action_pressed("right"):
+		if color != 0:
+			$Sprite.texture = colors.running[1]
+			color = 1
+		movement.x = move_speed
+
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		set_sprite(0)
 		movement.y = -jump_height
@@ -45,8 +73,17 @@ func _physics_process(delta):
 		restart()
 
 func set_sprite(c: int):
-	$Sprite.texture = colors.sprites[c]
 	color = c
+	$Sprite.texture = colors.sprites[c]
+	$Sprite.hframes = 1
+	$Sprite.frame = 0
+
+func set_run(c: int):
+	color = c
+	var run = colors.running[c]
+	$Sprite.texture = run
+	$Sprite.frame = 0
+	$Sprite.hframes = run.get_width() / 8
 
 func restart():
 	movement = Vector2()
