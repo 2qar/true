@@ -121,6 +121,7 @@ func restart():
 	explosion.color = colors.colors[color]
 	explosion.emitting = true
 	$hit.play()
+	colors.deaths += 1
 	movement = Vector2()
 	position = start
 	set_sprite(start_color)

@@ -5,6 +5,7 @@ var running = []
 var jumping = []
 var colors : PoolColorArray = []
 var names = ["red", "blue", "green"]
+var deaths : int
 
 func _ready():
 	for name in ["red", "blue", "green"]:
