@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="true"
-run/main_scene="res://scenes/main.tscn"
+run/main_scene="res://scenes/levels/title.tscn"
 config/icon="res://sprites/blue.png"
 
 [autoload]

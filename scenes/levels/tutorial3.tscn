@@ -1,18 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/levels/world.gd" type="Script" id=1]
 [ext_resource path="res://scenes/background.tscn" type="PackedScene" id=2]
 [ext_resource path="res://test_tiles.tres" type="TileSet" id=3]
 [ext_resource path="res://scenes/switcheroo.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/player.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/key.gd" type="Script" id=6]
-[ext_resource path="res://sprites/space.png" type="Texture" id=7]
-
-
-
-
-
-
+[ext_resource path="res://scenes/key.tscn" type="PackedScene" id=6]
 
 [node name="tutorial3" type="Node2D"]
 script = ExtResource( 1 )
@@ -50,22 +43,4 @@ position = Vector2( -72, -8 )
 position = Vector2( -36, -4 )
 color = 0
 
-[node name="key" type="Node2D" parent="."]
-position = Vector2( 0, -24 )
-script = ExtResource( 6 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="bg_key" type="Sprite" parent="key"]
-modulate = Color( 0.85098, 0.341176, 0.388235, 1 )
-position = Vector2( 0, 1 )
-texture = ExtResource( 7 )
-
-[node name="key" type="Sprite" parent="key"]
-modulate = Color( 0.6, 0.898039, 0.313726, 1 )
-texture = ExtResource( 7 )
-
-[node name="press" type="Timer" parent="key"]
-autostart = true
-[connection signal="timeout" from="key/press" to="key" method="_on_press_timeout"]
+[node name="key" parent="." instance=ExtResource( 6 )]
